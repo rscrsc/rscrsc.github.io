@@ -2,7 +2,6 @@
 Generate static pages from the database
 """
 
-import os
 import csv
 from bs4 import BeautifulSoup
 import markdown
@@ -10,8 +9,6 @@ import markdown
 DIR_DATA = 'data/'
 DIR_BUILD = 'build/'
 DIR_STYLE = 'stylesheet/'
-
-root_path = os.path.abspath(os.getcwd())
 
 def parse_index(file_path):
     """
@@ -41,9 +38,9 @@ def construct_homepage(database):
     html = bs.new_tag('html')
     # - head
     css0 = bs.new_tag('link', rel="stylesheet", 
-        href=root_path + '/' + DIR_STYLE + "style.css")
+        href='../' + DIR_STYLE + "style.css")
     css1 = bs.new_tag('link', rel="stylesheet", 
-        href=root_path + '/' + DIR_STYLE + "index.css")
+        href='../' + DIR_STYLE + "index.css")
     title = bs.new_tag('title')
     title.string = "Arcie's Studio | Blog"
     #   append
@@ -106,9 +103,9 @@ def construct_articles(database):
             html = bs.new_tag('html')
             # - head
             css0 = bs.new_tag('link', rel="stylesheet", 
-                href=root_path + '/' + DIR_STYLE + "style.css")
+                href='../../' + DIR_STYLE + "style.css")
             css1 = bs.new_tag('link', rel="stylesheet", 
-                href=root_path + '/' + DIR_STYLE + "article.css")
+                href='../../' + DIR_STYLE + "article.css")
             title = bs.new_tag('title')
             title.string = e["display_title"]
             #   append
