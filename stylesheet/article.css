@@ -1,0 +1,13 @@
+.content{
+    font-family: Georgia, serif;
+    font-size: 21px;
+    word-spacing: 2px;
+    color: #000000;
+    font-weight: 400;
+    text-decoration: none;
+    font-style: normal;
+    font-variant: normal;
+    text-transform: none;
+    hyphens: auto;
+    word-wrap: break-word;
+}

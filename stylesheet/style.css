@@ -1,0 +1,11 @@
+/* Common Styles for all pages */
+
+body{
+    max-width: 800px;
+    margin: 0 auto; /* Center the content horizontally */
+}
+
+/* Header */
+.header{
+    text-align: center;
+}
