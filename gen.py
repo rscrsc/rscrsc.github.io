@@ -65,7 +65,7 @@ def construct_homepage(database):
         tableOfContent_entry_title = bs.new_tag('td')
         tableOfContent_entry_title_link = bs.new_tag('a', 
             attrs={"class": "toc-title"}, 
-            href='articles/' + e['filename'] + '.html')
+            href=DIR_BUILD + 'articles/' + e['filename'] + '.html')
         tableOfContent_entry_title_link.string = e['display_title']
         tableOfContent_entry_title.append(tableOfContent_entry_title_link)
         tableOfContent_entry_datetime = bs.new_tag('td', 
