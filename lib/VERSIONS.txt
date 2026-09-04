@@ -1,0 +1,19 @@
+Vendored browser libraries
+==========================
+
+pit.js
+  Source: supplied arui/assets/pit-js/pit.js
+  License: 0BSD (see pit.LICENSE)
+  Use in this site: signal(), computed(), component(); store()/WebSocket are not used.
+
+lit-html.js
+  Source: supplied arui/references/arui-demo/ui/lib/lit-html.js
+  Embedded version marker: 3.3.0
+  License: BSD-3-Clause (see lit-html.LICENSE)
+  Use in this site: tag-filter custom element rendering only.
+
+KaTeX
+  Version: 0.18.5
+  Source: supplied katex archive
+  License: MIT (the supplied README.md contains the upstream license reference)
+  Use in this site: katex.mjs + katex.min.css + fonts, loaded locally on article pages.

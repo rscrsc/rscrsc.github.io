@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="pandoc + arui/pit.js + lit-html">
+  <meta name="description" content="A compact specimen page covering the Markdown constructs normally expected in technical documentation.">
+  <meta name="keywords" content="pandoc, reference, typesetting">
+  <title>Markdown Formatting Reference · Arcie's Studio</title>
+  <link rel="stylesheet" href="../lib/katex/katex.min.css">
+  <style>
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; text-decoration: underline; } /* Error */
+code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+  </style>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f7f4;
+      --paper: #fff;
+      --fg: #202020;
+      --muted: #666;
+      --line: #c8c8c0;
+      --soft: #ecece7;
+      --accent: #12652a;
+      --accent-2: #173f7a;
+      --code-bg: #f0f0eb;
+      --max: 78rem;
+      --text: 49rem;
+      --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #11130f;
+        --paper: #171a15;
+        --fg: #e6e7e1;
+        --muted: #a4a79e;
+        --line: #43473f;
+        --soft: #22261f;
+        --accent: #74b86d;
+        --accent-2: #8aaee8;
+        --code-bg: #1f231d;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.68;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: var(--accent-2); text-decoration-thickness: 1px; text-underline-offset: .16em; }
+    a:hover { color: var(--accent); }
+    img { max-width: 100%; height: auto; }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .site-bar {
+      max-width: var(--max);
+      min-height: 3rem;
+      margin: 0 auto;
+      padding: .55rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font: .9rem/1.4 var(--mono);
+    }
+    .brand {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .brand::before { content: ":"; color: var(--muted); }
+    .site-nav { display: flex; gap: .9rem; flex-wrap: wrap; justify-content: flex-end; }
+    .site-nav a { color: var(--fg); text-decoration: none; }
+    .site-nav a::before { content: "["; color: var(--muted); }
+    .site-nav a::after { content: "]"; color: var(--muted); }
+    .site-nav a:hover { color: var(--accent); }
+
+    main { max-width: var(--max); margin: 0 auto; padding: 2.1rem 1rem 4rem; }
+    .page-head { max-width: var(--text); margin: 0 auto 2.2rem; }
+    .page-head h1 { margin: 0 0 .45rem; font: 700 clamp(2rem, 6vw, 3.25rem)/1.05 var(--serif); }
+    .dek { margin: .65rem 0 0; color: var(--muted); font-size: 1.03rem; }
+    .meta-line { margin-top: .8rem; font: .82rem/1.6 var(--mono); color: var(--muted); }
+    .meta-line .sep::before { content: " · "; }
+
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, var(--text));
+      justify-content: center;
+      gap: 2.4rem;
+    }
+    .article { min-width: 0; }
+    .toc-shell { display: none; }
+
+    @media (min-width: 70rem) {
+      .article-layout {
+        grid-template-columns: minmax(13rem, 17rem) minmax(0, var(--text));
+        align-items: start;
+      }
+      .toc-shell {
+        display: block;
+        position: sticky;
+        top: 1.2rem;
+        max-height: calc(100vh - 2.4rem);
+        overflow: auto;
+        border-right: 1px solid var(--line);
+        padding-right: 1rem;
+        font: .78rem/1.5 var(--mono);
+      }
+      .toc-shell ul { padding-left: 1.15rem; }
+      .toc-shell li { margin: .25rem 0; }
+      .toc-shell a { color: var(--muted); text-decoration: none; }
+      .toc-shell a:hover { color: var(--accent); }
+    }
+
+    article h2, article h3, article h4, article h5, article h6 {
+      scroll-margin-top: 1.2rem;
+      font-family: var(--serif);
+      line-height: 1.2;
+      margin-top: 2.2em;
+      margin-bottom: .6em;
+    }
+    article h2 { padding-bottom: .28rem; border-bottom: 1px solid var(--line); font-size: 1.65rem; }
+    article h3 { font-size: 1.3rem; }
+    article h4 { font-size: 1.08rem; }
+    article p { margin: .75rem 0 1.1rem; }
+    article ul, article ol { padding-left: 1.55rem; }
+    article li + li { margin-top: .25rem; }
+    article hr { border: 0; border-top: 1px solid var(--line); margin: 2.4rem 0; }
+
+    blockquote {
+      margin: 1.4rem 0;
+      padding: .2rem 0 .2rem 1rem;
+      border-left: 3px solid var(--accent);
+      color: var(--muted);
+    }
+    blockquote > :first-child { margin-top: 0; }
+    blockquote > :last-child { margin-bottom: 0; }
+
+    .note, .warning {
+      margin: 1.4rem 0;
+      padding: .7rem .9rem;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    .note::before, .warning::before {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--accent);
+      font: 700 .76rem/1.4 var(--mono);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .note::before { content: "note"; }
+    .warning::before { content: "warning"; }
+    .note > :first-child, .warning > :first-child { margin-top: 0; }
+    .note > :last-child, .warning > :last-child { margin-bottom: 0; }
+
+    code, kbd, samp { font-family: var(--mono); font-size: .88em; }
+    :not(pre) > code {
+      padding: .08rem .28rem;
+      border: 1px solid var(--line);
+      background: var(--code-bg);
+    }
+    pre {
+      overflow: auto;
+      margin: 1.4rem 0;
+      padding: .95rem 1rem;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      background: var(--code-bg);
+      line-height: 1.5;
+    }
+    pre code { font-size: .82rem; }
+    div.sourceCode { margin: 1.4rem 0; }
+    div.sourceCode pre { margin: 0; }
+
+    .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+    table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+    th, td { padding: .45rem .65rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { background: var(--soft); font-family: var(--mono); font-size: .82rem; }
+    caption { padding: .5rem 0; color: var(--muted); font-style: italic; }
+
+    dl { margin: 1.2rem 0; }
+    dt { font-weight: 700; }
+    dd { margin-left: 1.4rem; margin-bottom: .7rem; }
+
+    figure { margin: 1.7rem 0; text-align: center; }
+    figcaption { color: var(--muted); font-size: .9rem; }
+
+    .math-inline { white-space: nowrap; }
+    .math-display { display: block; overflow-x: auto; overflow-y: hidden; margin: 1.25rem 0; text-align: center; }
+    .katex-display { overflow-x: auto; overflow-y: hidden; padding: .2rem 0; }
+
+    .tag {
+      display: inline-block;
+      color: var(--accent);
+      font: .78rem/1.5 var(--mono);
+      white-space: nowrap;
+    }
+    .tag + .tag { margin-left: .65rem; }
+
+    .post-index { max-width: var(--text); margin: 0 auto; }
+    .post-card { padding: 1.2rem 0 1.35rem; border-top: 1px solid var(--line); }
+    .post-card:last-child { border-bottom: 1px solid var(--line); }
+    .post-card[hidden] { display: none; }
+    .post-card h2 { margin: 0 0 .25rem; font-size: 1.32rem; line-height: 1.25; }
+    .post-card h2 a { color: var(--fg); }
+    .post-card h2 a:hover { color: var(--accent); }
+    .post-card p { margin: .35rem 0; }
+    .post-date { color: var(--muted); font: .78rem/1.5 var(--mono); }
+    .post-tags { margin-top: .45rem; }
+
+    tag-filter { display: block; max-width: var(--text); margin: 0 auto 1.35rem; }
+
+    .footnotes { margin-top: 3rem; border-top: 1px solid var(--line); font-size: .9rem; }
+    .footnotes hr { display: none; }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--paper);
+      font: .76rem/1.5 var(--mono);
+    }
+    .site-footer-inner { max-width: var(--max); margin: 0 auto; padding: 1rem; }
+
+    @media (max-width: 42rem) {
+      body { font-size: 16px; }
+      .site-bar { align-items: flex-start; flex-direction: column; gap: .35rem; }
+      .site-nav { gap: .55rem; }
+      main { padding-top: 1.45rem; }
+      .page-head { margin-bottom: 1.5rem; }
+    }
+
+    @media print {
+      .site-header, .site-footer, .toc-shell, tag-filter { display: none !important; }
+      body, main { background: white; color: black; }
+      main { max-width: none; padding: 0; }
+      a { color: inherit; }
+      .article-layout { display: block; }
+      pre, blockquote { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-bar">
+      <a class="brand" href="../index.html">Arcie's Studio</a>
+      <nav class="site-nav" aria-label="primary">
+        <a href="../index.html">index</a>
+        
+        <a href="#TOC">contents</a>
+        <a href="#top">top</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <header class="page-head">
+      <h1>Markdown Formatting Reference</h1>
+      <p class="dek">A compact specimen page covering the Markdown constructs normally expected in technical documentation.</p>
+      <p class="meta-line">
+        <span>written 2026-09-04</span>
+        <span class="sep">#pandoc &nbsp; #reference &nbsp; #typesetting</span>
+      </p>
+    </header>
+    <div class="article-layout">
+      <aside class="toc-shell" aria-label="table of contents"><ul>
+<li><a href="#text-and-inline-markup" id="toc-text-and-inline-markup">Text and inline markup</a></li>
+<li><a href="#lists" id="toc-lists">Lists</a>
+<ul>
+<li><a href="#lower-level-heading" id="toc-lower-level-heading">Lower-level heading</a></li>
+</ul></li>
+<li><a href="#display-mathematics" id="toc-display-mathematics">Display mathematics</a></li>
+<li><a href="#code-blocks" id="toc-code-blocks">Code blocks</a></li>
+<li><a href="#tables" id="toc-tables">Tables</a></li>
+<li><a href="#figure" id="toc-figure">Figure</a></li>
+<li><a href="#notes-rules-and-raw-html" id="toc-notes-rules-and-raw-html">Notes, rules, and raw HTML</a></li>
+</ul></aside>
+      <article class="article">
+<section id="text-and-inline-markup" class="level2">
+<h2>Text and inline markup</h2>
+<p>This paragraph contains <em>emphasis</em>, <strong>strong emphasis</strong>, <del>deleted text</del>, <code>inline_code()</code>, H<sub>2</sub>O, and 2<sup>10</sup>. A normal <a href="https://pandoc.org/">link to Pandoc</a> sits beside an internal <a href="#tables">table link</a>. Escaped punctuation such as *asterisks* stays literal.</p>
+<p>Inline mathematics uses the familiar dollar syntax: <span class="math math-inline" data-display="false">e^{i\pi}+1=0</span>. Symbols, fractions, and operators work as expected: <span class="math math-inline" data-display="false">\alpha + \beta = \frac{1}{2}</span>.</p>
+<blockquote>
+<p>A block quote should remain visually quiet. Long quotations wrap to the same readable measure as the body text and use only a thin rule as emphasis.</p>
+</blockquote>
+</section>
+<section id="lists" class="level2">
+<h2>Lists</h2>
+<p>Unordered lists can be nested:</p>
+<ul>
+<li>source documents
+<ul>
+<li>metadata</li>
+<li>prose</li>
+</ul></li>
+<li>rendering
+<ul>
+<li>semantic HTML</li>
+<li>local assets</li>
+</ul></li>
+</ul>
+<p>Ordered lists preserve sequence:</p>
+<ol type="1">
+<li>edit Markdown;</li>
+<li>run <code>make</code>;</li>
+<li>serve the directory with any static HTTP server.</li>
+</ol>
+<p>Task lists are useful for release notes:</p>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />local JavaScript dependencies</label></li>
+<li><label><input type="checkbox" checked="" />responsive navigation</label></li>
+<li><label><input type="checkbox" />add a third document later</label></li>
+</ul>
+<section id="lower-level-heading" class="level3">
+<h3>Lower-level heading</h3>
+<p>A third-level heading verifies hierarchy, automatic identifiers, and the generated table of contents.</p>
+<div class="note">
+<p>This fenced Div is a Pandoc extension. The HTML remains a normal <code>&lt;div class="note"&gt;</code>, styled by the single site template.</p>
+</div>
+<dl>
+<dt>Term</dt>
+<dd>
+A definition-list term.
+</dd>
+<dt>Definition</dt>
+<dd>
+A block attached to the preceding term, useful for manuals and glossaries.
+</dd>
+</dl>
+</section>
+</section>
+<section id="display-mathematics" class="level2">
+<h2>Display mathematics</h2>
+<p>A display equation is emitted as a KaTeX placeholder by the Lua filter and rendered from the local <code>lib/katex/</code> module:</p>
+<p><span class="math math-display" data-display="true">
+\hat{\theta}
+= \operatorname*{arg\,min}_{\theta}
+\sum_{i=1}^{n}\left(y_i-f_\theta(x_i)\right)^2.
+</span></p>
+<p>A second example exercises matrices and alignment-like structures:</p>
+<p><span class="math math-display" data-display="true">
+A = \begin{bmatrix}
+1 &amp; 2 \\
+3 &amp; 4
+\end{bmatrix},
+\qquad
+\det(A) = -2.
+</span></p>
+</section>
+<section id="code-blocks" class="level2">
+<h2>Code blocks</h2>
+<p>Fenced code blocks carry their language to Pandoc’s built-in syntax highlighter.</p>
+<div class="sourceCode" id="cb1" data-language="c"><pre class="sourceCode c md-code"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">void</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    puts<span class="op">(</span><span class="st">&quot;static, small, inspectable&quot;</span><span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb2" data-language="python"><pre class="sourceCode python md-code"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pages <span class="op">=</span> <span class="bu">sorted</span>(Path(<span class="st">&quot;src&quot;</span>).glob(<span class="st">&quot;*.md&quot;</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> page <span class="kw">in</span> pages:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(page.stem)</span></code></pre></div>
+</section>
+<section id="tables" class="level2">
+<h2>Tables</h2>
+<div class="table-wrap">
+<table>
+<caption>Core rendering responsibilities</caption>
+<thead>
+<tr>
+<th style="text-align: left;">Component</th>
+<th style="text-align: left;">Generated form</th>
+<th style="text-align: center;">Client JavaScript</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">headings</td>
+<td style="text-align: left;">semantic <code>h2</code>–<code>h6</code></td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr>
+<td style="text-align: left;">code</td>
+<td style="text-align: left;">highlighted <code>pre &gt; code</code></td>
+<td style="text-align: center;">no</td>
+</tr>
+<tr>
+<td style="text-align: left;">inline math</td>
+<td style="text-align: left;">KaTeX placeholder</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">display math</td>
+<td style="text-align: left;">KaTeX placeholder</td>
+<td style="text-align: center;">yes</td>
+</tr>
+<tr>
+<td style="text-align: left;">tag filter</td>
+<td style="text-align: left;">static cards + arui state</td>
+<td style="text-align: center;">yes</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="figure" class="level2">
+<h2>Figure</h2>
+<figure>
+<img src="media/layout.svg" loading="lazy" decoding="async" alt="A deliberately plain diagram used to exercise figure and image rendering." />
+<figcaption aria-hidden="true">A deliberately plain diagram used to exercise figure and image rendering.</figcaption>
+</figure>
+</section>
+<section id="notes-rules-and-raw-html" class="level2">
+<h2>Notes, rules, and raw HTML</h2>
+<p>Footnotes remain useful in longer technical documents.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> The page also supports horizontal rules and conservative raw HTML when Markdown has no equivalent.</p>
+<hr />
+<details>
+<summary>
+Raw HTML details element
+</summary>
+<p>Pandoc passes this block through. Use raw HTML sparingly so the Markdown remains portable.</p>
+</details>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The generated files are ordinary HTML, CSS, fonts, and JavaScript; there is no runtime application server.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      Built with pandoc, arui, lit, katex, and my heart
+    </div>
+  </footer>
+
+  <script type="module">
+    import katex from '../lib/katex/katex.mjs';
+
+    for (const node of document.querySelectorAll('.math')) {
+      const source = node.textContent;
+      katex.render(source, node, {
+        displayMode: node.dataset.display === 'true',
+        throwOnError: false,
+        strict: 'warn'
+      });
+    }
+  </script>
+</body>
+</html>

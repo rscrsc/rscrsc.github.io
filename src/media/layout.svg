@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-labelledby="title desc">
+  <title id="title">Static site layout</title>
+  <desc id="desc">Markdown flows through Pandoc and a Lua filter into static HTML using local browser libraries.</desc>
+  <style>
+    text { font: 15px ui-monospace, monospace; fill: #222; }
+    rect { fill: #fafafa; stroke: #777; stroke-width: 1.4; }
+    path { stroke: #12652a; stroke-width: 2; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      text { fill: #e6e7e1; }
+      rect { fill: #171a15; stroke: #888; }
+      path { stroke: #74b86d; }
+    }
+  </style>
+  <rect x="18" y="72" width="150" height="76" rx="2"/>
+  <text x="42" y="105">src/*.md</text>
+  <text x="42" y="127">YAML + Markdown</text>
+  <path d="M168 110H262"/>
+  <path d="M250 102l12 8-12 8"/>
+  <rect x="264" y="50" width="190" height="120" rx="2"/>
+  <text x="294" y="91">pandoc html5</text>
+  <text x="294" y="113">+ site.lua</text>
+  <text x="294" y="135">+ site.html</text>
+  <path d="M454 110H548"/>
+  <path d="M536 102l12 8-12 8"/>
+  <rect x="550" y="60" width="152" height="100" rx="2"/>
+  <text x="572" y="98">index.html</text>
+  <text x="572" y="122">static/*.html</text>
+  <text x="572" y="146">lib/*</text>
+</svg>

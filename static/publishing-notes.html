@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="generator" content="pandoc + arui/pit.js + lit-html">
+  <meta name="description" content="用第二篇文档验证中文、元信息、代码、表格、脚注、公式与常见技术文档结构。">
+  <meta name="keywords" content="pandoc, arui, notes">
+  <title>静态发布与排版笔记 · Arcie's Studio</title>
+  <link rel="stylesheet" href="../lib/katex/katex.min.css">
+  <style>
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #232629;
+    color: #7a7c7d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #7a7c7d;  padding-left: 4px; }
+div.sourceCode
+  { color: #cfcfc2; background-color: #232629; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span { color: #cfcfc2; } /* Normal */
+code span.al { color: #95da4c; background-color: #4d1f24; font-weight: bold; } /* Alert */
+code span.an { color: #3f8058; } /* Annotation */
+code span.at { color: #2980b9; } /* Attribute */
+code span.bn { color: #f67400; } /* BaseN */
+code span.bu { color: #7f8c8d; } /* BuiltIn */
+code span.cf { color: #fdbc4b; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #3daee9; } /* Char */
+code span.cn { color: #27aeae; font-weight: bold; } /* Constant */
+code span.co { color: #7a7c7d; } /* Comment */
+code span.cv { color: #7f8c8d; } /* CommentVar */
+code span.do { color: #a43340; } /* Documentation */
+code span.dt { color: #2980b9; } /* DataType */
+code span.dv { color: #f67400; } /* DecVal */
+code span.er { color: #da4453; text-decoration: underline; } /* Error */
+code span.ex { color: #0099ff; font-weight: bold; } /* Extension */
+code span.fl { color: #f67400; } /* Float */
+code span.fu { color: #8e44ad; } /* Function */
+code span.im { color: #27ae60; } /* Import */
+code span.in { color: #c45b00; } /* Information */
+code span.kw { color: #cfcfc2; font-weight: bold; } /* Keyword */
+code span.op { color: #cfcfc2; } /* Operator */
+code span.ot { color: #27ae60; } /* Other */
+code span.pp { color: #27ae60; } /* Preprocessor */
+code span.re { color: #2980b9; background-color: #153042; } /* RegionMarker */
+code span.sc { color: #3daee9; } /* SpecialChar */
+code span.ss { color: #da4453; } /* SpecialString */
+code span.st { color: #f44f4f; } /* String */
+code span.va { color: #27aeae; } /* Variable */
+code span.vs { color: #da4453; } /* VerbatimString */
+code span.wa { color: #da4453; } /* Warning */
+  </style>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f7f4;
+      --paper: #fff;
+      --fg: #202020;
+      --muted: #666;
+      --line: #c8c8c0;
+      --soft: #ecece7;
+      --accent: #12652a;
+      --accent-2: #173f7a;
+      --code-bg: #f0f0eb;
+      --max: 78rem;
+      --text: 49rem;
+      --mono: ui-monospace, "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      --serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #11130f;
+        --paper: #171a15;
+        --fg: #e6e7e1;
+        --muted: #a4a79e;
+        --line: #43473f;
+        --soft: #22261f;
+        --accent: #74b86d;
+        --accent-2: #8aaee8;
+        --code-bg: #1f231d;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--serif);
+      font-size: 17px;
+      line-height: 1.68;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: var(--accent-2); text-decoration-thickness: 1px; text-underline-offset: .16em; }
+    a:hover { color: var(--accent); }
+    img { max-width: 100%; height: auto; }
+
+    .site-header {
+      border-bottom: 1px solid var(--line);
+      background: var(--paper);
+    }
+    .site-bar {
+      max-width: var(--max);
+      min-height: 3rem;
+      margin: 0 auto;
+      padding: .55rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font: .9rem/1.4 var(--mono);
+    }
+    .brand {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .brand::before { content: ":"; color: var(--muted); }
+    .site-nav { display: flex; gap: .9rem; flex-wrap: wrap; justify-content: flex-end; }
+    .site-nav a { color: var(--fg); text-decoration: none; }
+    .site-nav a::before { content: "["; color: var(--muted); }
+    .site-nav a::after { content: "]"; color: var(--muted); }
+    .site-nav a:hover { color: var(--accent); }
+
+    main { max-width: var(--max); margin: 0 auto; padding: 2.1rem 1rem 4rem; }
+    .page-head { max-width: var(--text); margin: 0 auto 2.2rem; }
+    .page-head h1 { margin: 0 0 .45rem; font: 700 clamp(2rem, 6vw, 3.25rem)/1.05 var(--serif); }
+    .dek { margin: .65rem 0 0; color: var(--muted); font-size: 1.03rem; }
+    .meta-line { margin-top: .8rem; font: .82rem/1.6 var(--mono); color: var(--muted); }
+    .meta-line .sep::before { content: " · "; }
+
+    .article-layout {
+      display: grid;
+      grid-template-columns: minmax(0, var(--text));
+      justify-content: center;
+      gap: 2.4rem;
+    }
+    .article { min-width: 0; }
+    .toc-shell { display: none; }
+
+    @media (min-width: 70rem) {
+      .article-layout {
+        grid-template-columns: minmax(13rem, 17rem) minmax(0, var(--text));
+        align-items: start;
+      }
+      .toc-shell {
+        display: block;
+        position: sticky;
+        top: 1.2rem;
+        max-height: calc(100vh - 2.4rem);
+        overflow: auto;
+        border-right: 1px solid var(--line);
+        padding-right: 1rem;
+        font: .78rem/1.5 var(--mono);
+      }
+      .toc-shell ul { padding-left: 1.15rem; }
+      .toc-shell li { margin: .25rem 0; }
+      .toc-shell a { color: var(--muted); text-decoration: none; }
+      .toc-shell a:hover { color: var(--accent); }
+    }
+
+    article h2, article h3, article h4, article h5, article h6 {
+      scroll-margin-top: 1.2rem;
+      font-family: var(--serif);
+      line-height: 1.2;
+      margin-top: 2.2em;
+      margin-bottom: .6em;
+    }
+    article h2 { padding-bottom: .28rem; border-bottom: 1px solid var(--line); font-size: 1.65rem; }
+    article h3 { font-size: 1.3rem; }
+    article h4 { font-size: 1.08rem; }
+    article p { margin: .75rem 0 1.1rem; }
+    article ul, article ol { padding-left: 1.55rem; }
+    article li + li { margin-top: .25rem; }
+    article hr { border: 0; border-top: 1px solid var(--line); margin: 2.4rem 0; }
+
+    blockquote {
+      margin: 1.4rem 0;
+      padding: .2rem 0 .2rem 1rem;
+      border-left: 3px solid var(--accent);
+      color: var(--muted);
+    }
+    blockquote > :first-child { margin-top: 0; }
+    blockquote > :last-child { margin-bottom: 0; }
+
+    .note, .warning {
+      margin: 1.4rem 0;
+      padding: .7rem .9rem;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+    .note::before, .warning::before {
+      display: block;
+      margin-bottom: .35rem;
+      color: var(--accent);
+      font: 700 .76rem/1.4 var(--mono);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .note::before { content: "note"; }
+    .warning::before { content: "warning"; }
+    .note > :first-child, .warning > :first-child { margin-top: 0; }
+    .note > :last-child, .warning > :last-child { margin-bottom: 0; }
+
+    code, kbd, samp { font-family: var(--mono); font-size: .88em; }
+    :not(pre) > code {
+      padding: .08rem .28rem;
+      border: 1px solid var(--line);
+      background: var(--code-bg);
+    }
+    pre {
+      overflow: auto;
+      margin: 1.4rem 0;
+      padding: .95rem 1rem;
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      background: var(--code-bg);
+      line-height: 1.5;
+    }
+    pre code { font-size: .82rem; }
+    div.sourceCode { margin: 1.4rem 0; }
+    div.sourceCode pre { margin: 0; }
+
+    .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+    table { width: 100%; border-collapse: collapse; font-size: .93rem; }
+    th, td { padding: .45rem .65rem; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+    th { background: var(--soft); font-family: var(--mono); font-size: .82rem; }
+    caption { padding: .5rem 0; color: var(--muted); font-style: italic; }
+
+    dl { margin: 1.2rem 0; }
+    dt { font-weight: 700; }
+    dd { margin-left: 1.4rem; margin-bottom: .7rem; }
+
+    figure { margin: 1.7rem 0; text-align: center; }
+    figcaption { color: var(--muted); font-size: .9rem; }
+
+    .math-inline { white-space: nowrap; }
+    .math-display { display: block; overflow-x: auto; overflow-y: hidden; margin: 1.25rem 0; text-align: center; }
+    .katex-display { overflow-x: auto; overflow-y: hidden; padding: .2rem 0; }
+
+    .tag {
+      display: inline-block;
+      color: var(--accent);
+      font: .78rem/1.5 var(--mono);
+      white-space: nowrap;
+    }
+    .tag + .tag { margin-left: .65rem; }
+
+    .post-index { max-width: var(--text); margin: 0 auto; }
+    .post-card { padding: 1.2rem 0 1.35rem; border-top: 1px solid var(--line); }
+    .post-card:last-child { border-bottom: 1px solid var(--line); }
+    .post-card[hidden] { display: none; }
+    .post-card h2 { margin: 0 0 .25rem; font-size: 1.32rem; line-height: 1.25; }
+    .post-card h2 a { color: var(--fg); }
+    .post-card h2 a:hover { color: var(--accent); }
+    .post-card p { margin: .35rem 0; }
+    .post-date { color: var(--muted); font: .78rem/1.5 var(--mono); }
+    .post-tags { margin-top: .45rem; }
+
+    tag-filter { display: block; max-width: var(--text); margin: 0 auto 1.35rem; }
+
+    .footnotes { margin-top: 3rem; border-top: 1px solid var(--line); font-size: .9rem; }
+    .footnotes hr { display: none; }
+
+    .site-footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--paper);
+      font: .76rem/1.5 var(--mono);
+    }
+    .site-footer-inner { max-width: var(--max); margin: 0 auto; padding: 1rem; }
+
+    @media (max-width: 42rem) {
+      body { font-size: 16px; }
+      .site-bar { align-items: flex-start; flex-direction: column; gap: .35rem; }
+      .site-nav { gap: .55rem; }
+      main { padding-top: 1.45rem; }
+      .page-head { margin-bottom: 1.5rem; }
+    }
+
+    @media print {
+      .site-header, .site-footer, .toc-shell, tag-filter { display: none !important; }
+      body, main { background: white; color: black; }
+      main { max-width: none; padding: 0; }
+      a { color: inherit; }
+      .article-layout { display: block; }
+      pre, blockquote { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-bar">
+      <a class="brand" href="../index.html">Arcie's Studio</a>
+      <nav class="site-nav" aria-label="primary">
+        <a href="../index.html">index</a>
+        
+        <a href="#TOC">contents</a>
+        <a href="#top">top</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <header class="page-head">
+      <h1>静态发布与排版笔记</h1>
+      <p class="dek">用第二篇文档验证中文、元信息、代码、表格、脚注、公式与常见技术文档结构。</p>
+      <p class="meta-line">
+        <span>written 2026-09-03</span>
+        <span class="sep">#pandoc &nbsp; #arui &nbsp; #notes</span>
+      </p>
+    </header>
+    <div class="article-layout">
+      <aside class="toc-shell" aria-label="table of contents"><ul>
+<li><a href="#基本文本" id="toc-基本文本">基本文本</a></li>
+<li><a href="#清单与定义" id="toc-清单与定义">清单与定义</a>
+<ul>
+<li><a href="#三级标题" id="toc-三级标题">三级标题</a></li>
+</ul></li>
+<li><a href="#数学公式" id="toc-数学公式">数学公式</a></li>
+<li><a href="#代码高亮" id="toc-代码高亮">代码高亮</a></li>
+<li><a href="#表格" id="toc-表格">表格</a></li>
+<li><a href="#图片与脚注" id="toc-图片与脚注">图片与脚注</a></li>
+</ul></aside>
+      <article class="article">
+<section id="基本文本" class="level2">
+<h2>基本文本</h2>
+<p>普通段落保持接近 GNU 手册的阅读密度，同时用接近 Vim 文档站点的克制绿色作为强调色。这里包含 <em>斜体</em>、<strong>粗体</strong>、<del>删除线</del>、<code>make all</code>、CO<sub>2</sub> 与 x<sup>2</sup>。链接既可以指向 <a href="https://pandoc.org/">Pandoc</a>，也可以指向本页的<a href="#数学公式">数学公式</a>。</p>
+<p>行内公式示例为 <span class="math math-inline" data-display="false">\sigma^2 = \operatorname{Var}(X)</span>，它不会请求任何 CDN。</p>
+<blockquote>
+<p>静态站点的关键不是“没有 JavaScript”，而是正文和路由不依赖 JavaScript。这里的 JavaScript 只负责渐进增强：标签筛选和数学渲染。</p>
+</blockquote>
+</section>
+<section id="清单与定义" class="level2">
+<h2>清单与定义</h2>
+<ul>
+<li>构建输入
+<ul>
+<li><code>src/*.md</code></li>
+<li><code>site.html</code></li>
+<li><code>site.lua</code></li>
+</ul></li>
+<li>构建输出
+<ul>
+<li><code>index.html</code></li>
+<li><code>static/*.html</code></li>
+<li><code>static/media/*</code></li>
+</ul></li>
+</ul>
+<ol type="1">
+<li>Pandoc 负责 AST 与 HTML5；</li>
+<li>Lua filter 负责站点语义；</li>
+<li>pit.js + lit-html 负责少量交互。</li>
+</ol>
+<ul class="task-list">
+<li><label><input type="checkbox" checked="" />不调用 <code>store()</code></label></li>
+<li><label><input type="checkbox" checked="" />不创建 WebSocket</label></li>
+<li><label><input type="checkbox" checked="" />所有依赖位于 <code>lib/</code></label></li>
+</ul>
+<section id="三级标题" class="level3">
+<h3>三级标题</h3>
+<p>三级标题用于验证目录层级与自动锚点。</p>
+<div class="note">
+<p>这是 Pandoc fenced Div；模板把 <code>.note</code> 渲染成非常克制的说明框。</p>
+</div>
+<dl>
+<dt>元信息</dt>
+<dd>
+YAML front matter 中的 <code>title</code>、<code>submitted</code>、<code>tags</code> 与 <code>summary</code>。
+</dd>
+<dt>渐进增强</dt>
+<dd>
+即使模块脚本加载失败，文章、链接、目录和标签列表仍然是可读的静态 HTML。
+</dd>
+</dl>
+</section>
+</section>
+<section id="数学公式" class="level2">
+<h2>数学公式</h2>
+<p>行间公式使用标准 Pandoc Markdown 语法：</p>
+<p><span class="math math-display" data-display="true">
+P(A\mid B)=\frac{P(B\mid A)P(A)}{P(B)}.
+</span></p>
+<p>再给出一个带求和与极限的式子：</p>
+<p><span class="math math-display" data-display="true">
+\bar{x}=\frac{1}{n}\sum_{i=1}^{n}x_i,
+\qquad
+\lim_{n\to\infty}\left(1+\frac{1}{n}\right)^n=e.
+</span></p>
+</section>
+<section id="代码高亮" class="level2">
+<h2>代码高亮</h2>
+<div class="sourceCode" id="cb1" data-language="makefile"><pre class="sourceCode makefile md-code"><code class="sourceCode makefile"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">SRC</span> <span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">wildcard</span><span class="st"> src/*.md</span><span class="ch">)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="dt">PAGES</span> <span class="ch">:=</span><span class="st"> </span><span class="ch">$(</span><span class="kw">patsubst</span><span class="st"> src/%.md</span><span class="kw">,</span><span class="st">static/%.html</span><span class="kw">,</span><span class="ch">$(</span><span class="dt">SRC</span><span class="ch">))</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dv">all:</span><span class="dt"> index.html </span><span class="ch">$(</span><span class="dt">PAGES</span><span class="ch">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb2" data-language="javascript"><pre class="sourceCode javascript md-code"><code class="sourceCode javascript"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> { signal<span class="op">,</span> effect } <span class="im">from</span> <span class="st">&#39;./lib/pit.js&#39;</span><span class="op">;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">const</span> tag <span class="op">=</span> <span class="fu">signal</span>(<span class="st">&#39;all&#39;</span>)<span class="op">;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">effect</span>(() <span class="kw">=&gt;</span> <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">&#39;active tag:&#39;</span><span class="op">,</span> tag<span class="op">.</span><span class="fu">get</span>()))<span class="op">;</span></span></code></pre></div>
+</section>
+<section id="表格" class="level2">
+<h2>表格</h2>
+<div class="table-wrap">
+<table>
+<caption>静态生成链路</caption>
+<thead>
+<tr>
+<th>层次</th>
+<th>职责</th>
+<th style="text-align: center;">是否需要运行时服务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Markdown</td>
+<td>内容与元信息</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td>Pandoc + Lua</td>
+<td>构建 HTML</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td>arui 前端</td>
+<td>标签筛选</td>
+<td style="text-align: center;">否</td>
+</tr>
+<tr>
+<td>KaTeX</td>
+<td>浏览器内公式排版</td>
+<td style="text-align: center;">否</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="图片与脚注" class="level2">
+<h2>图片与脚注</h2>
+<figure>
+<img src="media/layout.svg" loading="lazy" decoding="async" alt="同一张简化布局图也用于验证中文图注。" />
+<figcaption aria-hidden="true">同一张简化布局图也用于验证中文图注。</figcaption>
+</figure>
+<p>脚注适合放补充说明，而不打断正文阅读。<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<hr />
+<details>
+<summary>
+可折叠的原生 HTML 区块
+</summary>
+<p>这类元素不需要额外组件库；保持原生即可。</p>
+</details>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p><code>make</code> 默认目标会一次生成首页、文章页和静态媒体目录。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      Built with pandoc, arui, lit, katex, and my heart
+    </div>
+  </footer>
+
+  <script type="module">
+    import katex from '../lib/katex/katex.mjs';
+
+    for (const node of document.querySelectorAll('.math')) {
+      const source = node.textContent;
+      katex.render(source, node, {
+        displayMode: node.dataset.display === 'true',
+        throwOnError: false,
+        strict: 'warn'
+      });
+    }
+  </script>
+</body>
+</html>

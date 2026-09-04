@@ -1,12 +1,18 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="$if(lang)$$lang$$else$zh-CN$endif$">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="generator" content="pandoc + arui/pit.js + lit-html">
-  <meta name="description" content="Shift the world by writing.">
-  <meta name="keywords" content="arui, notes, pandoc, reference, typesetting">
-  <title>Arcie's Studio</title>
+  $if(summary)$<meta name="description" content="$summary$">$endif$
+  $if(tags)$<meta name="keywords" content="$for(tags)$$tags$$sep$, $endfor$">$endif$
+  <title>$if(is-index)$$site-title$$else$$if(title)$$title$ · $endif$$site-title$$endif$</title>
+$if(is-article)$  <link rel="stylesheet" href="$root$/lib/katex/katex.min.css">
+$endif$$if(highlighting-css)$
+  <style>
+$highlighting-css$
+  </style>
+$endif$
   <style>
     :root {
       color-scheme: light dark;
@@ -252,41 +258,43 @@
 <body>
   <header class="site-header">
     <div class="site-bar">
-      <a class="brand" href="./index.html">Arcie's Studio</a>
+      <a class="brand" href="$root$/index.html">$site-title$</a>
       <nav class="site-nav" aria-label="primary">
-        <a href="./index.html">index</a>
-        <a href="#tag-filter">tags</a>
-        
+        <a href="$root$/index.html">index</a>
+        $if(is-index)$<a href="#tag-filter">tags</a>$endif$
+        $if(is-article)$$if(toc)$<a href="#TOC">contents</a>$endif$$endif$
         <a href="#top">top</a>
       </nav>
     </div>
   </header>
 
   <main id="top">
+$if(is-index)$
     <header class="page-head">
-      <h1>Arcie's Studio</h1>
-      <p class="dek">Shift the world by writing.</p>
-      <p class="meta-line"><span>2 documents</span></p>
+      <h1>$title$</h1>
+      $if(summary)$<p class="dek">$summary$</p>$endif$
+      <p class="meta-line"><span>$post-count$ documents</span></p>
     </header>
     <tag-filter id="tag-filter"></tag-filter>
     <section class="post-index" aria-label="documents">
-<section class="level2 post-card" data-tags="pandoc|reference|typesetting" data-slug="formatting-reference">
-<h2><a href="./static/formatting-reference.html">Markdown Formatting Reference</a></h2>
-<p><span class="post-date">2026-09-04</span></p>
-<p>A compact specimen page covering the Markdown constructs normally expected in technical documentation.</p>
-<div class="post-tags">
-<span class="tag">#pandoc</span> <span class="tag">#reference</span> <span class="tag">#typesetting</span>
-</div>
-</section>
-<section class="level2 post-card" data-tags="pandoc|arui|notes" data-slug="publishing-notes">
-<h2><a href="./static/publishing-notes.html">静态发布与排版笔记</a></h2>
-<p><span class="post-date">2026-09-03</span></p>
-<p>用第二篇文档验证中文、元信息、代码、表格、脚注、公式与常见技术文档结构。</p>
-<div class="post-tags">
-<span class="tag">#pandoc</span> <span class="tag">#arui</span> <span class="tag">#notes</span>
-</div>
-</section>
+$body$
     </section>
+$else$
+    <header class="page-head">
+      <h1>$title$</h1>
+      $if(summary)$<p class="dek">$summary$</p>$endif$
+      <p class="meta-line">
+        $if(submitted)$<span>written $submitted$</span>$endif$
+        $if(tags)$<span class="sep">$for(tags)$#$tags$$sep$ &nbsp; $endfor$</span>$endif$
+      </p>
+    </header>
+    <div class="article-layout">
+      $if(toc)$<aside class="toc-shell" aria-label="table of contents">$toc$</aside>$endif$
+      <article class="article">
+$body$
+      </article>
+    </div>
+$endif$
   </main>
 
   <footer class="site-footer">
@@ -296,8 +304,21 @@
   </footer>
 
   <script type="module">
-    import { signal, computed, component } from './lib/pit.js';
-    import { html, render } from './lib/lit-html.js';
+$if(is-article)$
+    import katex from '$root$/lib/katex/katex.mjs';
+
+    for (const node of document.querySelectorAll('.math')) {
+      const source = node.textContent;
+      katex.render(source, node, {
+        displayMode: node.dataset.display === 'true',
+        throwOnError: false,
+        strict: 'warn'
+      });
+    }
+$endif$
+$if(is-index)$
+    import { signal, computed, component } from '$root$/lib/pit.js';
+    import { html, render } from '$root$/lib/lit-html.js';
 
     if (!customElements.get('tag-filter')) {
       component('tag-filter', (ctx) => {
@@ -316,7 +337,7 @@
         });
 
         ctx.root.innerHTML = '<div id="mount"></div>';
-        const mount = ctx.$('#mount');
+        const mount = ctx.$$('#mount');
 
         ctx.effect(() => {
           const active = selected.get();
@@ -333,20 +354,20 @@
           render(html`
             <div class="filter-row" role="group" aria-label="filter documents by tag">
               <button
-                class=${active === 'all' ? 'active' : ''}
-                aria-pressed=${active === 'all' ? 'true' : 'false'}
-                @click=${() => selected.set('all')}>
+                class=$${active === 'all' ? 'active' : ''}
+                aria-pressed=$${active === 'all' ? 'true' : 'false'}
+                @click=$${() => selected.set('all')}>
                 all
               </button>
-              ${tags.map((tag) => html`
+              $${tags.map((tag) => html`
                 <button
-                  class=${active === tag ? 'active' : ''}
-                  aria-pressed=${active === tag ? 'true' : 'false'}
-                  @click=${() => selected.set(tag)}>
-                  #${tag}
+                  class=$${active === tag ? 'active' : ''}
+                  aria-pressed=$${active === tag ? 'true' : 'false'}
+                  @click=$${() => selected.set(tag)}>
+                  #$${tag}
                 </button>
               `)}
-              <output class="filter-count">${visibleCount.get()} / ${cards.length}</output>
+              <output class="filter-count">$${visibleCount.get()} / $${cards.length}</output>
             </div>
           `, mount);
         });
@@ -383,6 +404,7 @@
         `;
       });
     }
+$endif$
   </script>
 </body>
 </html>
