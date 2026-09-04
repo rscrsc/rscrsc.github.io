@@ -8,6 +8,24 @@
 <body>
   <h1>404 - Page Not Found</h1>
   <p>If you are seeing this, it means the page does not exist. You will be redirected...</p>
+  <script>
+    (function () {
+      var DELAY = 2000;
+      var path = window.location.pathname;
+      var target;
+
+      // If the URL ends with .html, try the clean URL instead
+      if (/\.html$/.test(path)) {
+        target = path.replace(/\.html$/, "");
+      } else {
+        target = "/";
+      }
+
+      window.setTimeout(function () {
+        window.location.replace(target);
+      }, DELAY);
+    })();
+  </script>
 </body>
 </html>
 
