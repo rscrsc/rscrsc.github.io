@@ -62,15 +62,15 @@ local function record_from_file(path, root)
   local meta = doc.meta
   local slug = source_slug(path)
   local title = meta.title or pandoc.Inlines({pandoc.Str(slug)})
-  local submitted = meta.submitted or meta.date or pandoc.Inlines({})
+  local date = meta.date or pandoc.Inlines({})
   local summary = meta.summary or pandoc.Inlines({})
   local tags = meta_list(meta, "tags")
 
   return {
     slug = slug,
     title = title,
-    submitted = submitted,
-    submitted_text = stringify(submitted),
+    date = date,
+    date_text = stringify(date),
     summary = summary,
     tags = tags,
     href = root .. "/static/" .. slug .. ".html"
@@ -89,8 +89,8 @@ local function build_index(doc)
   end
 
   table.sort(records, function(a, b)
-    if a.submitted_text == b.submitted_text then return a.slug < b.slug end
-    return a.submitted_text > b.submitted_text
+    if a.date_text == b.date_text then return a.slug < b.slug end
+    return a.date_text > b.date_text
   end)
 
   local blocks = pandoc.Blocks({})
@@ -107,7 +107,7 @@ local function build_index(doc)
     local title_link = pandoc.Link(r.title, r.href)
     local card_blocks = pandoc.Blocks({
       pandoc.Header(2, {title_link}),
-      pandoc.Para({pandoc.Span(r.submitted, pandoc.Attr("", {"post-date"}))}),
+      pandoc.Para({pandoc.Span(r.date, pandoc.Attr("", {"post-date"}))}),
       pandoc.Para(r.summary),
       pandoc.Div({pandoc.Plain(tag_inlines(r.tags))}, pandoc.Attr("", {"post-tags"}))
     })
@@ -126,7 +126,6 @@ local function build_index(doc)
   for _, tag in ipairs(all_tags) do tag_meta:insert(pandoc.MetaString(tag)) end
   meta["all-tags"] = tag_meta
   meta.tags = tag_meta
-  meta.submitted = nil
   meta.date = nil
   meta["post-count"] = pandoc.MetaString(tostring(#records))
   meta["is-index"] = pandoc.MetaBool(true)
@@ -138,10 +137,6 @@ local function build_index(doc)
 end
 
 function Meta(meta)
-  -- "submitted" is the source-facing field; "date" is populated as a
-  -- conventional alias so generic Pandoc tooling can still understand it.
-  if meta.submitted and not meta.date then meta.date = meta.submitted end
-
   local kind = text(meta, "page-kind", "article")
   meta["is-index"] = pandoc.MetaBool(kind == "index")
   meta["is-article"] = pandoc.MetaBool(kind ~= "index")

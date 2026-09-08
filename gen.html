@@ -284,7 +284,8 @@ $else$
       <h1>$title$</h1>
       $if(summary)$<p class="dek">$summary$</p>$endif$
       <p class="meta-line">
-        $if(submitted)$<span>written $submitted$</span>$endif$
+        $if(author)$<span>$author$</span>$endif$
+        $if(date)$<span class="sep">written $date$</span>$endif$
         $if(tags)$<span class="sep">$for(tags)$#$tags$$sep$ &nbsp; $endfor$</span>$endif$
       </p>
     </header>

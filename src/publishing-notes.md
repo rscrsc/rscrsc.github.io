@@ -1,6 +1,7 @@
 ---
 title: 静态发布与排版笔记
-submitted: 2026-09-03
+date: 2026-09-03
+author: Arcie Ren
 tags:
   - pandoc
   - arui
@@ -44,7 +45,7 @@ summary: 用第二篇文档验证中文、元信息、代码、表格、脚注�
 :::
 
 元信息
-: YAML front matter 中的 `title`、`submitted`、`tags` 与 `summary`。
+: YAML front matter 中的 `title`、`date`、`tags` 与 `summary`。
 
 渐进增强
 : 即使模块脚本加载失败，文章、链接、目录和标签列表仍然是可读的静态 HTML。
