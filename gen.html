@@ -7,6 +7,7 @@
   $if(summary)$<meta name="description" content="$summary$">$endif$
   $if(tags)$<meta name="keywords" content="$for(tags)$$tags$$sep$, $endfor$">$endif$
   <title>$if(is-index)$$site-title$$else$$if(title)$$title$ · $endif$$site-title$$endif$</title>
+  <link rel="icon" type="image/png" href="$root$/favicon.png">
 $if(is-article)$  <link rel="stylesheet" href="$root$/lib/katex/katex.min.css">
 $endif$$if(highlighting-css)$
   <style>
